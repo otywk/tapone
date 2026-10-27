@@ -1,0 +1,74 @@
+/* ESTILOS GENERALES */
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { min-height: 100vh; background: #050505; color: white; font-family: Arial, sans-serif; }
+[hidden] { display: none !important; }
+button { font-family: inherit; }
+.contenedor { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+.contenedor h1 { color: yellow; font-size: clamp(25px, 4vw, 36px); margin-bottom: 30px; }
+.siguiente { background: yellow; color: black; border: 0; border-radius: 6px; padding: 12px 30px; font-size: 18px; font-weight: bold; cursor: pointer; transition: transform .25s, background .25s; }
+.siguiente:hover { background: white; transform: scale(1.05); }
+body.con-fondo { background: url("Fondo-Inicial.png") center/cover fixed no-repeat; }
+body.fondo-personajes { background: url("Fondo-Inicial2.jpeg") center/cover fixed no-repeat; }
+/* MENU ORIGINAL */
+.menu { min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8%; padding: 30px; background: rgba(0,0,0,.15); }
+.tarjeta { position: relative; width: min(35vw, 560px); height: min(55vh, 700px); min-height: 220px; overflow: hidden; border: 2px solid rgba(255,255,255,.7); border-radius: 18px; background: #111; cursor: pointer; box-shadow: 0 10px 35px #0008; transition: transform .35s, border-color .35s, box-shadow .35s; }
+.tarjeta img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.tarjeta::after, .personaje::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.88), transparent 65%); pointer-events: none; }
+.tarjeta span, .personaje span { position: absolute; z-index: 1; bottom: 18px; left: 8px; right: 8px; text-align: center; font-weight: bold; color: white; text-shadow: 0 2px 8px #000; }
+.tarjeta span { font-size: clamp(18px, 2.5vw, 30px); }
+.tarjeta:hover { transform: translateY(-10px) scale(1.03); border-color: yellow; box-shadow: 0 15px 45px #000b; }
+.tarjeta:hover img { transform: scale(1.07); }
+.menu.visible .tarjeta-izquierda { animation: entrarIzquierda .8s ease both; }
+.menu.visible .tarjeta-derecha { animation: entrarDerecha .8s ease .2s both; }
+@keyframes entrarIzquierda { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes entrarDerecha { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+/* JUEGO */
+.seccion-personajes { min-height: 100vh; width: 100%; padding: 24px 4% 40px; background: rgba(0,0,0,.22); }
+.encabezado-juego { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 1050px; margin: 0 auto 16px; }
+.titulo-juego { text-align: center; }
+.titulo-juego h2 { font-size: clamp(27px, 4vw, 40px); margin: 0 0 6px; text-shadow: 0 3px 10px #000; }
+.titulo-juego p { margin: 0; color: #e3e3e3; font-size: 14px; }
+.boton-secundario { background: #151515d9; color: white; border: 1px solid #aaa; border-radius: 8px; padding: 10px 15px; cursor: pointer; }
+.boton-secundario:hover { border-color: yellow; }
+.barra-estado { max-width: 1000px; margin: 0 auto 18px; display: flex; gap: 12px; justify-content: space-between; font-size: 14px; font-weight: bold; text-shadow: 0 2px 5px black; }
+.rejilla-personajes { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 18px; width: min(100%, 1000px); margin: 0 auto; }
+.tarjeta-personaje { grid-column: span 3; min-width: 0; }
+.tarjeta-personaje:nth-child(5) { grid-column: 3 / span 3; }
+.tarjeta-personaje:nth-child(6) { grid-column: 6 / span 3; }
+.tarjeta-personaje:nth-child(7) { grid-column: 9 / span 3; }
+.personaje { display: block; position: relative; width: 100%; aspect-ratio: 1 / 1; padding: 0; border: 2px solid #ffffffb8; border-radius: 15px; overflow: hidden; background: #161616; color: white; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.personaje img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.personaje span { bottom: 12px; font-size: clamp(13px, 1.55vw, 19px); }
+.personaje:hover:not(.seleccionado) { border-color: yellow; box-shadow: 0 10px 30px #0009; }
+.personaje.seleccionado { border-color: #a6a6a6; cursor: default; }
+.personaje.seleccionado img { filter: grayscale(100%) brightness(.6); }
+.personaje.seleccionado::before { content: "✓"; position: absolute; top: 8px; right: 8px; z-index: 2; color: white; font-size: 24px; font-weight: bold; text-shadow: 0 2px 6px #000; }
+.personaje.rodando { border-color: #ffe600; }
+/* RESULTADOS */
+.pantalla-resultado { min-height: 100vh; text-align: center; padding: 35px 18px; background: #080808d9; }
+.pantalla-resultado h2 { font-size: 32px; margin: 0 0 10px; }
+.puntaje-total { display: block; font-size: clamp(42px, 7vw, 72px); color: yellow; margin: 12px 0 25px; }
+.resumen-elegidos { max-width: 1000px; margin: 0 auto 28px; display: grid; grid-template-columns: repeat(auto-fit,minmax(125px,1fr)); gap: 12px; }
+.resultado-item { background: #222; border: 1px solid #555; border-radius: 12px; overflow: hidden; padding-bottom: 10px; }
+.resultado-item img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.resultado-item strong, .resultado-item span { display: block; padding: 4px 7px 0; }
+.resultado-item strong { font-size: 13px; }
+.resultado-item span { color: #ffeb3b; font-size: 13px; }
+.ranking { max-width: 500px; margin: 0 auto 25px; padding: 18px; background: #191919; border: 1px solid #555; border-radius: 14px; }
+.ranking h3 { margin-top: 0; }
+.nota-ranking { color: #bbb; font-size: 12px; }
+.ranking ol { text-align: left; padding-left: 30px; }
+.ranking li { padding: 5px; }
+.acciones-final { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+@media(max-width:700px) {
+  .menu { gap: 15px; padding: 15px; }
+  .tarjeta { width: 46%; height: 40vh; min-height: 200px; }
+  .tarjeta span { font-size: 18px; }
+  .encabezado-juego { flex-wrap: wrap; justify-content: center; }
+  .titulo-juego { order: -1; width: 100%; }
+  .rejilla-personajes { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .tarjeta-personaje, .tarjeta-personaje:nth-child(5), .tarjeta-personaje:nth-child(6) { grid-column: auto; }
+  .tarjeta-personaje:nth-child(7) { grid-column: 1 / -1; width: calc(50% - 6px); justify-self: center; }
+  .barra-estado { flex-direction: column; text-align: center; }
+}
